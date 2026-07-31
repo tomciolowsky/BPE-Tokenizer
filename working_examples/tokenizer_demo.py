@@ -1,4 +1,4 @@
-from tokenizer import Tokenizer
+from bpe_tokenizer import Tokenizer
 import tiktoken
 
 my_tokenizer = Tokenizer()

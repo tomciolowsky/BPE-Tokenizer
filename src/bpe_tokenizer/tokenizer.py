@@ -1,8 +1,12 @@
 import json
+import pathlib
 import re
 
+DATA_DIR = pathlib.Path(__file__).parent / "data"
+
 class Tokenizer:
-    def __init__(self):
+    def __init__(self, data_dir:pathlib.Path=DATA_DIR):
+        self.data_dir = data_dir
         self.token_to_id = {}
         self.id_to_token = {}
         self.ranks = {}
@@ -13,19 +17,22 @@ class Tokenizer:
         """
         Load the vocabulary from a JSON file and create mappings between tokens and IDs.
         """
-        with open(file_name, "r", encoding="utf-8") as f:
+        dictionary_path = self.data_dir / file_name
+        with open(dictionary_path, "r", encoding="utf-8") as f:
             vocab = json.load(f)
             self.id_to_token = {int(v): k for k, v in vocab.items()}
             self.token_to_id = {k: int(v) for k, v in vocab.items()}
 
             self.token_to_id["\n"] = 198
+            self.token_to_id["\n\n"] = 628
             self.token_to_id["\r"] = 201
 
     def load_ranks(self, file_name="vocab.bpe"):
         """
         Load the BPE ranks from a file and create a mapping between token pairs and their ranks.
         """
-        with open(file_name, "r", encoding="utf-8") as f:
+        ranks_path = self.data_dir / file_name
+        with open(ranks_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
             if lines[0][0] == "#":
@@ -43,7 +50,7 @@ class Tokenizer:
         Convert given text into a list of tokens
         """
         tokens = []
-        parts = re.split(r'(\r\n|\r|\n)', text)
+        parts = re.split(r'(\r\n|\n\n|\r|\n)', text)
         for part in parts:
             if part == "":
                 continue
@@ -56,6 +63,9 @@ class Tokenizer:
                 continue
             if part == "\n":
                 tokens.append("\n")
+                continue
+            if part == "\n\n":
+                tokens.append("\n\n")
                 continue
 
             s = re.split(r'(\S+)', part)
@@ -151,6 +161,8 @@ class Tokenizer:
                 tokens.append("\n")
             elif token_id == 201:
                 tokens.append("\r")
+            elif token_id == 628:
+                tokens.append("\n\n")
                 
             elif token[0] == "Ġ":
                 tokens.append(" " + token[1:])
