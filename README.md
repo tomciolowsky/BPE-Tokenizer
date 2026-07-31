@@ -67,3 +67,13 @@ To run tests:
 ```bash
 pytest
 ```
+
+## Resources
+
+* Learning materials:
+
+    [Sebastian Raschka Blog](https://sebastianraschka.com/)
+
+* Tests:
+
+    [OpenAI tiktoken Repo](https://github.com/openai/tiktoken/tree/main/tests)
