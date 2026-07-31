@@ -4,7 +4,7 @@ import tiktoken
 my_tokenizer = Tokenizer()
 tiktoken_tokenizer = tiktoken.get_encoding("gpt2")
 
-sentence = "This is \n some text"
+sentence = "This is some text with words outside of vocabulary: \n Superfluous, Arachnophobia, etc."
 
 tiktoken_tokens = tiktoken_tokenizer.encode(sentence)
 my_tokens = my_tokenizer.encode(sentence)
