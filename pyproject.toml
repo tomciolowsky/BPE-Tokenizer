@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bpe-tokenizer"
+version = "0.1.0"
+description = "Toy version of a Byte Pair Encoding (BPE) tokenization"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Tomasz Białecki", email = "bialecki.tomasz6@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "tiktoken>=0.5.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
