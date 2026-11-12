@@ -1,6 +1,8 @@
-from bpe_tokenizer import Tokenizer
 import pytest
 import tiktoken
+
+from bpe_tokenizer import Tokenizer
+
 
 @pytest.fixture(scope="module")
 def my_tokenizer():
@@ -35,14 +37,14 @@ def test_tokenization_consistency(my_tokenizer, reference_tokenizer, sentence):
     my_tokens = my_tokenizer.encode(sentence)
     expected_tokens = reference_tokenizer.encode(sentence)
 
-    assert my_tokens == expected_tokens, f"Token mismatch for sentence: {repr(sentence)}"
+    assert my_tokens == expected_tokens, f"Token mismatch for sentence: {sentence!r}"
 
 @pytest.mark.parametrize("sentence", test_cases)
 def test_decoding_consistency(my_tokenizer, sentence):
     my_tokens = my_tokenizer.encode(sentence)
     my_decoded_text = my_tokenizer.decode(my_tokens)
 
-    assert my_decoded_text == sentence, f"Decoded text mismatch for sentence: {repr(sentence)}"
+    assert my_decoded_text == sentence, f"Decoded text mismatch for sentence: {sentence!r}"
 
 
 def test_repeated_character_tokenization(my_tokenizer, reference_tokenizer):
@@ -52,7 +54,7 @@ def test_repeated_character_tokenization(my_tokenizer, reference_tokenizer):
             my_tokens = my_tokenizer.encode(test_string)
             expected_tokens = reference_tokenizer.encode(test_string)
 
-            assert my_tokens == expected_tokens, f"Token mismatch for repeated character: {repr(test_string)}"
+            assert my_tokens == expected_tokens, f"Token mismatch for repeated character: {test_string!r}"
 
 def test_invalid_token_handling(my_tokenizer):
     

@@ -103,7 +103,8 @@ class Tokenizer:
             if len(strings) == 1:
                 break
 
-            pairs_strings = set([(strings[i], strings[i + 1]) for i in range(len(strings) - 1)])
+            pairs_strings_list = [(strings[i], strings[i + 1]) for i in range(len(strings) - 1)]
+            pairs_strings = set(pairs_strings_list)
             if not pairs_strings:
                 break
 

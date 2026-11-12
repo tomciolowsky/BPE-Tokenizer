@@ -1,5 +1,6 @@
-from bpe_tokenizer import Tokenizer
 import tiktoken
+
+from bpe_tokenizer import Tokenizer
 
 my_tokenizer = Tokenizer()
 tiktoken_tokenizer = tiktoken.get_encoding("gpt2")
